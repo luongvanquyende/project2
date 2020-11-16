@@ -9,6 +9,7 @@
 
 
 - Including the Detached Layout ( new feature of Ubold ), all of the new features of the Ubold template are contained in this kit.
+- Before start this, please check the docs directory, It will be helpful to you.
 
 
 ## How to use
