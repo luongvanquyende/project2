@@ -18,13 +18,13 @@
                                 
                                 <div class="text-center w-75 m-auto">
                                     <div class="auth-logo">
-                                        <a href="{{route('index')}}" class="logo logo-dark text-center">
+                                        <a  class="logo logo-dark text-center">
                                             <span class="logo-lg">
                                                 <img src="{{asset('assets/images/logo-dark.png')}}" alt="" height="22">
                                             </span>
                                         </a>
                     
-                                        <a href="{{route('index')}}" class="logo logo-light text-center">
+                                        <a  class="logo logo-light text-center">
                                             <span class="logo-lg">
                                                 <img src="{{asset('assets/images/logo-light.png')}}" alt="" height="22">
                                             </span>
@@ -91,24 +91,6 @@
 
                                 </form>
 
-                                <div class="text-center">
-                                    <h5 class="mt-3 text-muted">Sign up using</h5>
-                                    <ul class="social-list list-inline mt-3 mb-0">
-                                        <li class="list-inline-item">
-                                            <a href="javascript: void(0);" class="social-list-item border-primary text-primary"><i class="mdi mdi-facebook"></i></a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a href="javascript: void(0);" class="social-list-item border-danger text-danger"><i class="mdi mdi-google"></i></a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a href="javascript: void(0);" class="social-list-item border-info text-info"><i class="mdi mdi-twitter"></i></a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a href="javascript: void(0);" class="social-list-item border-secondary text-secondary"><i class="mdi mdi-github"></i></a>
-                                        </li>
-                                    </ul>
-                                </div>
-
                             </div> <!-- end card-body -->
                         </div>
                         <!-- end card -->
@@ -129,7 +111,7 @@
         <!-- end page -->
 
         <footer class="footer footer-alt">
-            <script>document.write(new Date().getFullYear())</script> &copy; UBold theme by <a href="" class="text-white-50">Coderthemes</a> 
+            <script>document.write(new Date().getFullYear())</script> &copy; <a href="" class="text-white-50">Luong Van Quyen</a> 
         </footer>
 
         @include('layouts.shared.footer-script')

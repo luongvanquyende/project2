@@ -19,6 +19,7 @@ class CreateEquipmentsTable extends Migration
             $table->bigInteger('setting_id');
             $table->string('name', 100);
             $table->string('slug');
+            $table->string('token');
             $table->string('description')->nullable();
             $table->boolean('status');
             $table->string('image', 2048)->nullable();
