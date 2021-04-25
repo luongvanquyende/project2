@@ -35,8 +35,6 @@
         </div>
         <!-- END wrapper -->
 
-        @include('layouts.shared/right-sidebar')
-
         @include('layouts.shared/footer-script')
         
     </body>

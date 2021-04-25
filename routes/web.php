@@ -24,4 +24,6 @@ Route::group(['middleware' => 'auth', 'prefix' => '/'], function () {
 });
 
 // landing
-Route::get('', 'RoutingController@index')->name('index');
+Route::get('/', function () {
+    return redirect('/dashboard');
+});

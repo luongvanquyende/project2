@@ -3,73 +3,38 @@
 
     <div class="h-100" data-simplebar>
 
-        <!-- User box -->
-        <div class="user-box text-center">
-            <img src="{{asset('assets/images/users/user-1.jpg')}}" alt="user-img" title="Mat Helme"
-                class="rounded-circle avatar-md">
-            <div class="dropdown">
-                <a href="javascript: void(0);" class="text-dark dropdown-toggle h5 mt-2 mb-1 d-block"
-                    data-toggle="dropdown">Geneva Kennedy</a>
-                <div class="dropdown-menu user-pro-dropdown">
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <i class="fe-user mr-1"></i>
-                        <span>My Account</span>
-                    </a>
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <i class="fe-settings mr-1"></i>
-                        <span>Settings</span>
-                    </a>
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <i class="fe-lock mr-1"></i>
-                        <span>Lock Screen</span>
-                    </a>
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <i class="fe-log-out mr-1"></i>
-                        <span>Logout</span>
-                    </a>
-
-                </div>
-            </div>
-            <p class="text-muted">Admin Head</p>
-        </div>
-
         <!--- Sidemenu -->
         <div id="sidebar-menu">
 
             <ul id="side-menu">
 
                 <li class="menu-title">Navigation</li>
-                
                 <li>
-                    <a href="#sidebarDashboards" data-toggle="collapse">
+                    <a href="{{route('any', 'dashboard')}}">
                         <i data-feather="airplay"></i>
-                        <span class="badge badge-success badge-pill float-right">4</span>
                         <span> Dashboards </span>
                     </a>
-                    <div class="collapse" id="sidebarDashboards">
-                        <ul class="nav-second-level">
-                            <li>
-                                <a href="{{route('any', 'dashboard')}}">Dashboard 1</a>
-                            </li>
-                            <li>
-                                <a href="{{route('any', 'dashboard-2')}}">Dashboard 2</a>
-                            </li>
-                            <li>
-                                <a href="{{route('any', 'dashboard-3')}}">Dashboard 3</a>
-                            </li>
-                            <li>
-                                <a href="{{route('any', 'dashboard-4')}}">Dashboard 4</a>
-                            </li>
-                        </ul>
-                    </div>
+                </li>
+
+                <li>
+                    <a href="{{route('second', ['apps', 'calendar'])}}">
+                        <i data-feather="calendar"></i>
+                        <span> Zone </span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{route('second', ['equipment', 'equipment'])}}">
+                        <i data-feather="calendar"></i>
+                        <span> Equipments </span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{route('second', ['apps', 'calendar'])}}">
+                        <i data-feather="calendar"></i>
+                        <span> History </span>
+                    </a>
                 </li>
 
                 <li class="menu-title mt-2">Apps</li>
