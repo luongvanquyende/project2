@@ -24,10 +24,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/equipment', 'EquipmentController@index');
     Route::post('/equipment', 'EquipmentController@store');
     Route::get('/equipment/{slug}', 'EquipmentController@show');
-    Route::get('/equipment/{slug}', 'EquipmentController@show');
-    Route::get('/zone', 'ZoneController@index');
     Route::post('/equipment/{slug}', 'EquipmentController@update');
+    Route::delete('/equipment/{slug}', 'EquipmentController@destroy');
+
+    Route::get('/zone', 'ZoneController@index');
+    Route::post('/zone', 'ZoneController@store');
+
+    Route::get('/history', 'HistoryController@index');
     Route::post('/history/{slug}', 'HistoryController@store');
+
     Route::get('/', function () {
         return redirect('/dashboard');
     });

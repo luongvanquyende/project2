@@ -87,7 +87,7 @@
                             </td>
 
                             <td>
-                                
+
                             </td>
 
                             <td>
@@ -118,9 +118,10 @@
                                         <a class="dropdown-item" href="/equipment/{{$equipment->slug}}">
                                             <i
                                                 class="fe-settings mr-2 text-muted font-18 vertical-middle"></i>Settings</a>
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item" onclick="event.preventDefault();
+                                        document.getElementById('delete-form-{{ $equipment->slug }}').submit();">
                                             <i
-                                                class="mdi mdi-check-all mr-2 text-muted font-18 vertical-middle"></i>Detail</a>
+                                                class="mdi mdi-trash-can-outline mr-2 text-muted font-18 vertical-middle"></i>Delete</a>
                                     </div>
                                 </div>
                             </td>
@@ -168,7 +169,7 @@
                                                 class="fe-settings mr-2 text-muted font-18 vertical-middle"></i>Settings</a>
                                         <a class="dropdown-item" href="#">
                                             <i
-                                                class="mdi mdi-check-all mr-2 text-muted font-18 vertical-middle"></i>Detail</a>
+                                                class="mdi mdi-trash-can-outline mr-2 text-muted font-18 vertical-middle"></i>Delete</a>
                                     </div>
                                 </div>
                             </td>
@@ -239,6 +240,14 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+@foreach ($equipments as $equipment)
+<form id="delete-form-{{ $equipment->slug }}" action="{{ action('EquipmentController@destroy', $equipment->slug) }}"
+    method="POST" style="display: none;">
+    @method('DELETE')
+    @csrf
+</form>
+@endforeach
 @endsection
 
 @section('script')

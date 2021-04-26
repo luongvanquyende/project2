@@ -1,4 +1,4 @@
-@extends('layouts.vertical', ['title' => 'CRM Opportunities'])
+@extends('layouts.vertical', ['title' => 'Zone'])
 
 @section('content')
 <!-- Start Content-->
@@ -19,7 +19,26 @@
         </div>
     </div>
     <!-- end page title -->
-
+    @if ($errors->any())
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+    @if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+        {{session('success')}}
+    </div>
+    @endif
 
     <div class="row">
         <div class="col-xl-12">
@@ -78,7 +97,40 @@
                     </div> <!-- end col-->
                 </div> <!-- end row -->
             </div> <!-- end card-box-->
-
+            @foreach ($zones as $zone)
+            <div class="card-box mb-2">
+                <div class="row align-items-center">
+                    <div class="col-sm-4">
+                        <div class="media">
+                            <img class="d-flex align-self-center mr-3 rounded-circle"
+                                src="{{url('https://previews.123rf.com/images/veremeev/veremeev1604/veremeev160400081/57030084-field-of-spring-tulips-flowers-is-a-lot-of-bright-mature-flowers-flower-bed-bright-flower-scorching-.jpg')}}"
+                                alt="Generic placeholder image" height="64">
+                            <div class="media-body">
+                                <h4 class="mt-0 mb-2 font-16">{{ $zone->name }}</h4>
+                                <p class="mb-1"><b>Location:</b> dau do o ha noi</p>
+                                <p class="mb-0"><b>Description:</b>{{ $zone->description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <p class="mb-1 mt-3 mt-sm-0"><i class="mdi mdi-email mr-1"></i>{{ $user->email }}</p>
+                        <p class="mb-0"><i class="mdi mdi-phone-classic mr-1"></i> 828-216-2190</p>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="text-center mt-3 mt-sm-0">
+                            <div class="badge font-14 bg-soft-info text-info p-1">150 equipment</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="text-sm-right">
+                            <a href="javascript:void(0);" class="action-icon"> <i
+                                    class="mdi mdi-square-edit-outline"></i></a>
+                            <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+                        </div>
+                    </div> <!-- end col-->
+                </div> <!-- end row -->
+            </div> <!-- end card-box-->
+            @endforeach
         </div> <!-- end col -->
     </div>
     <!-- end row -->
@@ -94,14 +146,16 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
             <div class="modal-body p-4">
-                <form>
+                <form method="POST" action="/zone">
+                    @csrf
                     <div class="form-group">
                         <label for="name">Zone Name</label>
-                        <input type="text" class="form-control" id="name" placeholder="Enter company name">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter company name">
                     </div>
                     <div class="form-group">
                         <label>Description</label>
-                        <textarea class="form-control" rows="3" placeholder="Please enter comment"></textarea>
+                        <textarea class="form-control" rows="3" name="description"
+                            placeholder="Please enter comment"></textarea>
                     </div>
 
                     <div class="form-group">
@@ -116,8 +170,6 @@
 
                     <div class="text-right">
                         <button type="submit" class="btn btn-success waves-effect waves-light">Save</button>
-                        <button type="button" class="btn btn-danger waves-effect waves-light"
-                            data-dismiss="modal">Continue</button>
                     </div>
                 </form>
             </div>

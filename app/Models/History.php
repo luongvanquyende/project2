@@ -18,11 +18,11 @@ class History extends Model
 
     public function User()
     {
-        return $this->hasMany(User::class, 'user_id');
+        return $this->belongsTo(User::class);
     }
 
     public function Equipment()
     {
-        return $this->belongsTo(Equipment::class, 'equipment_id');
+        return $this->belongsTo(Equipment::class, 'equipment_id')->withTrashed();
     }
 }

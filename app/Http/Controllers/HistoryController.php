@@ -17,7 +17,9 @@ class HistoryController extends Controller
      */
     public function index()
     {
-        //
+        $histories = History::with('user', 'equipment')->get();
+        
+        return view('history.index', compact('histories'));
     }
 
     /**
@@ -47,12 +49,15 @@ class HistoryController extends Controller
         ]);
 
         $equipment = Equipment::whereSlug($slug)->first();
+
+        if($request->get('status')){
+            History::create([
+                'equipment_id' => $equipment->id,
+                'user_id' => Auth::user()->id,
+                'status' => $request->get('status') ? '1' : '0',
+            ]);
+        }
         
-        History::create([
-            'equipment_id' => $equipment->id,
-            'user_id' => Auth::user()->id,
-            'status' => $request->get('status') ? '1' : '0',
-        ]);
 
         $turn = $request->get('status') ? 'Turn on' : 'Turn off';
 

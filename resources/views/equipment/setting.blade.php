@@ -91,14 +91,12 @@
                     <div class="form-group mb-3">
                         <label for="example-select">Zone</label>
                         <select class="form-control" id="example-select" name="zone">
-                            @if ($zones ?? '' )
                             @foreach ($zones as $zone)
                             @if ($equipment->zone_id == $zone->id)
                             <option checked value={{ $zone->id }}>{{ $zone->name }}</option>
                             @endif
                             <option value={{ $zone->id }}>{{ $zone->name }}</option>
                             @endforeach
-                            @endif
                         </select>
 
                     </div>

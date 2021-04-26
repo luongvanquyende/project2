@@ -20,7 +20,9 @@ class EquipmentController extends Controller
     {
         $equipments = Equipment::with(['zone', 'setting', 'histories'])->get();
         $zones = Zone::all();
-
+        // foreach($equipments as $equipment){
+        //     dd($equipment->history);
+        // }
         return view('equipment.index', compact(['equipments', 'zones']));
     }
 
@@ -75,7 +77,7 @@ class EquipmentController extends Controller
         $setting = Setting::where('equipment_id', $equipment->id)->first();
         $zones = Zone::all();
 
-        return view('equipment.setting', compact('equipment', 'setting'));
+        return view('equipment.setting', compact('equipment', 'setting', 'zones'));
     }
 
     /**
@@ -122,8 +124,11 @@ class EquipmentController extends Controller
      * @param  \App\equipment  $equipment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(equipment $equipment)
+    public function destroy($slug)
     {
-        //
+        $equipment = Equipment::whereSlug($slug);
+        $equipment->delete();
+
+        return redirect()->action('EquipmentController@index')->with('success', 'equipment deleted successfully');
     }
 }

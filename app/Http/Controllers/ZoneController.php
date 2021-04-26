@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\zones;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Zone;
+use Illuminate\Support\Str;
 
 class ZoneController extends Controller
 {
@@ -14,8 +17,10 @@ class ZoneController extends Controller
      */
     public function index()
     {
-        return view('zone.index');
+        $zones = Zone::all();
+        $user = Auth::user();
 
+        return view('zone.index', compact(['zones', 'user']));
     }
 
     /**
@@ -36,7 +41,21 @@ class ZoneController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'description' => 'nullable',
+            'image' => 'nullable',
+        ]);
+
+        Zone::create([
+            'name' => $request->get('name'),
+            'user_id' => Auth::user()->id,
+            'slug' => Str::slug($request->get('name'), '-'),
+            'image' => $request->get('image'),
+            'description' => $request->get('description'),
+        ]);
+
+        return redirect()->action('ZoneController@index')->with('success', 'new zone created successfully');
     }
 
     /**

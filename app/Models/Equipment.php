@@ -6,9 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Zone;
 use App\Models\Setting;
 use App\Models\History;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Equipment extends Model
 {
+    use SoftDeletes;
+
     public $table = "equipments";
     
     protected $fillable = [
