@@ -72,6 +72,60 @@
                     </thead>
 
                     <tbody>
+                        @foreach ($equipments as $equipment)
+                        <tr>
+                            <td>
+                                {{ $equipment->name }}
+                            </td>
+
+                            <td>
+                                {{ $equipment->description }}
+                            </td>
+
+                            <td>
+                                {{ $equipment->image }}
+                            </td>
+
+                            <td>
+                                
+                            </td>
+
+                            <td>
+                                @if ($equipment->zone_id)
+                                {{ $equipment->zone_id->name }}
+                                @endif
+                            </td>
+
+                            <td>
+                                @if ($equipment->status)
+                                <span class="badge badge-success">Active</span>
+                                @else
+                                <span class="badge bg-soft-danger text-danger">Inactive</span>
+                                @endif
+                            </td>
+
+                            <td>
+                                01/04/2017
+                            </td>
+
+                            <td>
+                                <div class="btn-group dropdown">
+                                    <a href="javascript: void(0);"
+                                        class="table-action-btn dropdown-toggle arrow-none btn btn-light btn-sm"
+                                        data-toggle="dropdown" aria-expanded="false"><i
+                                            class="mdi mdi-dots-horizontal"></i></a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" href="/equipment/{{$equipment->slug}}">
+                                            <i
+                                                class="fe-settings mr-2 text-muted font-18 vertical-middle"></i>Settings</a>
+                                        <a class="dropdown-item" href="#">
+                                            <i
+                                                class="mdi mdi-check-all mr-2 text-muted font-18 vertical-middle"></i>Detail</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
                         <tr>
                             <td>
                                 Equipment 1
@@ -110,9 +164,11 @@
                                             class="mdi mdi-dots-horizontal"></i></a>
                                     <div class="dropdown-menu dropdown-menu-right">
                                         <a class="dropdown-item" href="#">
-                                            <i class="fe-settings mr-2 text-muted font-18 vertical-middle"></i>Settings</a>
+                                            <i
+                                                class="fe-settings mr-2 text-muted font-18 vertical-middle"></i>Settings</a>
                                         <a class="dropdown-item" href="#">
-                                            <i class="mdi mdi-check-all mr-2 text-muted font-18 vertical-middle"></i>Detail</a>
+                                            <i
+                                                class="mdi mdi-check-all mr-2 text-muted font-18 vertical-middle"></i>Detail</a>
                                     </div>
                                 </div>
                             </td>

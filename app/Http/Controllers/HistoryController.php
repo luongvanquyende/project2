@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\histories;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\History;
+use App\Models\Equipment;
 
 class HistoryController extends Controller
 {
@@ -33,9 +36,27 @@ class HistoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $slug)
     {
-        //
+        $request->validate([
+            'status' => 'nullable',
+        ]);
+
+        Equipment::whereSlug($slug)->update([
+            'status' => $request->get('status') ? 1 : 0,
+        ]);
+
+        $equipment = Equipment::whereSlug($slug)->first();
+        
+        History::create([
+            'equipment_id' => $equipment->id,
+            'user_id' => Auth::user()->id,
+            'status' => $request->get('status') ? '1' : '0',
+        ]);
+
+        $turn = $request->get('status') ? 'Turn on' : 'Turn off';
+
+        return redirect('/equipment/' . $slug)->with('success', $turn . ' equipment successfully');
     }
 
     /**

@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\EquipmentController;
+use App\Http\Controllers\ZoneController;
+use App\Http\Controllers\HistoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,16 +19,15 @@ use App\Http\Controllers\HomeController;
 
 Auth::routes();
 
-
-
-
 // landing
 Route::group(['middleware' => 'auth'], function () {
-    Route::resource('equipment/', EquipmentController::class);
-    // Route::resource('zone/', ZoneController::class);
-    // Route::resource('history/', HistoryController::class);
-    // Route::resource('environment/', EnvironmentController::class);
-
+    Route::get('/equipment', 'EquipmentController@index');
+    Route::post('/equipment', 'EquipmentController@store');
+    Route::get('/equipment/{slug}', 'EquipmentController@show');
+    Route::get('/equipment/{slug}', 'EquipmentController@show');
+    Route::get('/zone', 'ZoneController@index');
+    Route::post('/equipment/{slug}', 'EquipmentController@update');
+    Route::post('/history/{slug}', 'HistoryController@store');
     Route::get('/', function () {
         return redirect('/dashboard');
     });

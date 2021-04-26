@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Zone;
 use App\Models\Equipment;
+use App\Models\Setting;
+use App\Models\Zone;
+use Illuminate\Support\Str;
 
 class EquipmentController extends Controller
 {
@@ -16,7 +18,7 @@ class EquipmentController extends Controller
      */
     public function index()
     {
-        $equipments = Equipment::all();
+        $equipments = Equipment::with(['zone', 'setting', 'histories'])->get();
         $zones = Zone::all();
 
         return view('equipment.index', compact(['equipments', 'zones']));
@@ -42,7 +44,7 @@ class EquipmentController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'zone_id' => 'required',
+            'zone_id' => 'nullable',
             'token' => 'required',
             'description' => 'nullable',
             'image' => 'nullable',
@@ -66,9 +68,14 @@ class EquipmentController extends Controller
      * @param  \App\equipment  $equipment
      * @return \Illuminate\Http\Response
      */
-    public function show(equipment $equipment)
+    public function show($slug)
     {
-        //
+        
+        $equipment = Equipment::whereSlug($slug)->firstOrFail();
+        $setting = Setting::where('equipment_id', $equipment->id)->first();
+        $zones = Zone::all();
+
+        return view('equipment.setting', compact('equipment', 'setting'));
     }
 
     /**
@@ -89,9 +96,24 @@ class EquipmentController extends Controller
      * @param  \App\equipment  $equipment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, equipment $equipment)
+    public function update(Request $request, $slug)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'description' => 'nullable',
+            'image' => 'nullable',
+            'zone_id' => 'nullable'
+        ]);
+        $newSlug = Str::slug($request->get('name'), '-');
+        Equipment::whereSlug($slug)->update([
+            'name' => $request->get('name'),
+            'description' => $request->get('description'),
+            'slug' => Str::slug($request->get('name'), '-'),
+            'image' => $request->get('image'),
+            'zone_id' => $request->get('zone_id'),
+        ]);
+
+        return redirect('/equipment/' . $newSlug)->with('success', 'equipment update successfully');
     }
 
     /**

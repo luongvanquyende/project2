@@ -29,31 +29,53 @@
             <div class="page-title-box">
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">UBold</a></li>
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">eCommerce</a></li>
-                        <li class="breadcrumb-item active">Product Edit</li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Equipment</a></li>
+                        <li class="breadcrumb-item active">Setting</li>
                     </ol>
                 </div>
-                <h4 class="page-title">Settings Equipment</h4>
+                <h4 class="page-title">Settings {{ $equipment->name }}</h4>
             </div>
         </div>
     </div>
     <!-- end page title -->
-
+    @if ($errors->any())
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+    @if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+        {{session('success')}}
+    </div>
+    @endif
 
     <div class="row">
         <div class="col-lg-6">
             <div class="card-box">
                 <h5 class="text-uppercase bg-light p-2 mt-0 mb-3">GENERAL</h5>
-                <form>
+                <form method="post" action="/equipment/{{$equipment->slug}}">
+                    @csrf
                     <div class="form-group mb-3">
                         <label for="product-name">Equipment Name <span class="text-danger">*</span></label>
-                        <input type="text" id="product-name" class="form-control" placeholder="">
+                        <input type="text" id="product-name" name="name" class="form-control" placeholder=""
+                            value="{{ $equipment->name }}">
                     </div>
 
                     <div class="form-group mb-3">
                         <label>Equipment Description</label>
-                        <textarea class="form-control" rows="3" placeholder="Please enter comment"></textarea>
+                        <textarea name="description" class="form-control" rows="3"
+                            placeholder="Please enter comment">{{ $equipment->description }}</textarea>
                     </div>
 
                     <div class="form-group mb-3">
@@ -69,13 +91,14 @@
                     <div class="form-group mb-3">
                         <label for="example-select">Zone</label>
                         <select class="form-control" id="example-select" name="zone">
-                            {{-- @foreach ($zones as $zone)
-                        <option value={{ $zone->id }}>{{ $zone->name }}</option>
-                            @endforeach --}}
-                            <option value="CRM1">Crm 1</option>
-                            <option value="CRM2">Crm 2</option>
-                            <option value="CRM3">Crm 3</option>
-                            <option value="CRM4">Crm 4</option>
+                            @if ($zones ?? '' )
+                            @foreach ($zones as $zone)
+                            @if ($equipment->zone_id == $zone->id)
+                            <option checked value={{ $zone->id }}>{{ $zone->name }}</option>
+                            @endif
+                            <option value={{ $zone->id }}>{{ $zone->name }}</option>
+                            @endforeach
+                            @endif
                         </select>
 
                     </div>
@@ -98,7 +121,7 @@
                         <label>Watering Time</label>
                         <div class="input-group clockpicker" data-placement="top" data-align="top"
                             data-autoclose="true">
-                            <input type="text" class="form-control" value="13:14">
+                            <input type="text" class="form-control" value="{{ $setting->watering_time ?? '' }}">
                             <div class="input-group-append">
                                 <span class="input-group-text"><i class="mdi mdi-clock-outline"></i></span>
                             </div>
@@ -107,7 +130,8 @@
 
                     <div class="form-group mb-3">
                         <label for="example-number">Amount of water</label>
-                        <input class="form-control" id="example-number" type="number" name="number">
+                        <input class="form-control" id="example-number" type="number" name="number"
+                            value="{{ $setting->amount_of_water ?? '' }}">
                     </div>
                     <div class="text-right">
                         <button type="reset" class="btn w-sm btn-light waves-effect">Cancel</button>
@@ -118,9 +142,11 @@
 
             <div class="card-box">
                 <h5 class="text-uppercase mt-0 mb-3 bg-light p-2">ACTION</h5>
-                <form>
+                <form method="post" action="/history/{{$equipment->slug}}">
+                    @csrf
                     <div class="switchery-demo">
-                        <input type="checkbox" data-plugin="switchery" data-color="#64b0f2" data-size="large" />
+                        <input type="checkbox" @if ($equipment->status) checked @endif
+                        data-plugin="switchery" data-color="#64b0f2" data-size="large" name="status" />
                     </div>
                     <div class="text-right">
                         <button type="reset" class="btn w-sm btn-light waves-effect">Cancel</button>
