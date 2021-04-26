@@ -7,6 +7,8 @@ use App\Models\Equipment;
 
 class Setting extends Model
 {
+    public $table = "settings";
+
     protected $fillable = [
         'watering_time',
         'amount_of_water',

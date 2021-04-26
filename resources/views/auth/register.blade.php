@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        @include('layouts.shared.title-meta', ['title' => "Register & Signup"])
+        @include('layouts.shared.title-meta', ['title' => "Register"])
 
         @include('layouts.shared.head-css')
     </head>
@@ -97,7 +97,7 @@
 
                         <div class="row mt-3">
                             <div class="col-12 text-center">
-                                <p class="text-white-50">Already have account?  <a href="{{route('second', ['auth', 'login'])}}" class="text-white ml-1"><b>Sign In</b></a></p>
+                                <p class="text-white-50">Already have account?  <a href="{{url('login')}}" class="text-white ml-1"><b>Sign In</b></a></p>
                             </div> <!-- end col -->
                         </div>
                         <!-- end row -->
@@ -111,7 +111,7 @@
         <!-- end page -->
 
         <footer class="footer footer-alt">
-            <script>document.write(new Date().getFullYear())</script> &copy; <a href="" class="text-white-50">Luong Van Quyen</a> 
+            <script>document.write(new Date().getFullYear())</script> &copy; <a href="#" class="text-white-50">Luong Van Quyen</a> 
         </footer>
 
         @include('layouts.shared.footer-script')

@@ -8,6 +8,8 @@ use App\Models\Equipment;
 
 class Zone extends Model
 {
+    public $table = "zones";
+
     protected $fillable = [
         'name',
         'user_id',

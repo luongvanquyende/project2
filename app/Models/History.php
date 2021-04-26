@@ -8,6 +8,8 @@ use App\Models\Equipment;
 
 class History extends Model
 {
+    public $table = "histories";
+
     protected $fillable = [
         'user_id',
         'equipment_id',

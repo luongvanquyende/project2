@@ -89,8 +89,8 @@
 
                         <div class="row mt-3">
                             <div class="col-12 text-center">
-                                <p> <a href="{{route('second', ['auth', 'recoverpw-2'])}}" class="text-white-50 ml-1">Forgot your password?</a></p>
-                                <p class="text-white-50">Don't have an account? <a href="{{route('register')}}" class="text-white ml-1"><b>Sign Up</b></a></p>
+                                <p> <a href="#" class="text-white-50 ml-1">Forgot your password?</a></p>
+                                <p class="text-white-50">Don't have an account? <a href="{{url('register')}}" class="text-white ml-1"><b>Sign Up</b></a></p>
                             </div> <!-- end col -->
                         </div>
                         <!-- end row -->
@@ -105,7 +105,7 @@
 
 
         <footer class="footer footer-alt">
-            <script>document.write(new Date().getFullYear())</script> &copy; <a href="" class="text-white-50">Luong Van Quyen</a> 
+            <script>document.write(new Date().getFullYear())</script> &copy; <a href="#" class="text-white-50">Luong Van Quyen</a> 
         </footer>
 
         @include('layouts.shared.footer-script')

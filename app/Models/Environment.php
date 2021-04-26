@@ -7,6 +7,8 @@ use App\Models\Equipment;
 
 class Environment extends Model
 {
+    public $table = "environments";
+
     protected $fillable = [
         'equipment_id',
         'temperature',

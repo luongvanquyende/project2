@@ -15,13 +15,12 @@ class CreateEquipmentsTable extends Migration
     {
         Schema::create('equipments', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('zone_id');
-            $table->bigInteger('setting_id');
+            $table->bigInteger('zone_id')->nullable();
             $table->string('name', 100);
             $table->string('slug');
             $table->string('token');
             $table->string('description')->nullable();
-            $table->boolean('status');
+            $table->boolean('status')->default('0');
             $table->string('image', 2048)->nullable();
             $table->timestamps();
             $table->softDeletes();

@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,13 +17,17 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 
-Route::group(['middleware' => 'auth', 'prefix' => '/'], function () {
-    Route::get('{first}/{second}/{third}', 'RoutingController@thirdLevel')->name('third');
-    Route::get('{first}/{second}', 'RoutingController@secondLevel')->name('second');
-    Route::get('{any}', 'RoutingController@root')->name('any');
-});
+
 
 // landing
-Route::get('/', function () {
-    return redirect('/dashboard');
+Route::group(['middleware' => 'auth'], function () {
+    Route::resource('equipment/', EquipmentController::class);
+    // Route::resource('zone/', ZoneController::class);
+    // Route::resource('history/', HistoryController::class);
+    // Route::resource('environment/', EnvironmentController::class);
+
+    Route::get('/', function () {
+        return redirect('/dashboard');
+    });
+    Route::get('/dashboard', [HomeController::class, 'index']);
 });

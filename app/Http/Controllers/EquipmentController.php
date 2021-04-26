@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\equipment;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\Zone;
+use App\Models\Equipment;
 
 class EquipmentController extends Controller
 {
@@ -14,7 +16,10 @@ class EquipmentController extends Controller
      */
     public function index()
     {
-        //
+        $equipments = Equipment::all();
+        $zones = Zone::all();
+
+        return view('equipment.index', compact(['equipments', 'zones']));
     }
 
     /**
@@ -35,7 +40,24 @@ class EquipmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'zone_id' => 'required',
+            'token' => 'required',
+            'description' => 'nullable',
+            'image' => 'nullable',
+        ]);
+
+        Equipment::create([
+            'name' => $request->get('name'),
+            'zone_id' => $request->get('zone_id'),
+            'slug' => Str::slug($request->get('name'), '-'),
+            'token' => $request->get('token'),
+            'image' => $request->get('image'),
+            'description' => $request->get('description'),
+        ]);
+
+        return redirect()->action('EquipmentController@index')->with('success', 'new equipment created successfully');
     }
 
     /**

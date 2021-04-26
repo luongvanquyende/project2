@@ -8,6 +8,8 @@ use App\Models\Setting;
 
 class Equipment extends Model
 {
+    public $table = "equipments";
+    
     protected $fillable = [
         'zone_id',
         'slug',
