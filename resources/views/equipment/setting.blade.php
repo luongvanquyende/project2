@@ -68,7 +68,7 @@
                     @csrf
                     <div class="form-group mb-3">
                         <label for="product-name">Equipment Name <span class="text-danger">*</span></label>
-                        <input type="text" id="product-name" name="name" class="form-control" placeholder=""
+                        <input autocomplete="off" type="text" id="product-name" name="name" class="form-control" placeholder=""
                             value="{{ $equipment->name }}">
                     </div>
 
@@ -82,7 +82,7 @@
                         <label>Image</label>
                         <div class="input-group">
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="inputGroupFile04" name="image">
+                                <input autocomplete="off" type="file" class="custom-file-input" id="inputGroupFile04" name="image">
                                 <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
                             </div>
                         </div>
@@ -90,7 +90,7 @@
 
                     <div class="form-group mb-3">
                         <label for="example-select">Zone</label>
-                        <select class="form-control" id="example-select" name="zone">
+                        <select class="form-control" id="example-select" name="zone_id">
                             @foreach ($zones as $zone)
                             @if ($equipment->zone_id == $zone->id)
                             <option checked value={{ $zone->id }}>{{ $zone->name }}</option>
@@ -114,12 +114,13 @@
             <div class="card-box">
                 <h5 class="text-uppercase mt-0 mb-3 bg-light p-2">SETTING</h5>
 
-                <form>
+                <form method="post" action="/setting/{{$equipment->slug}}">
+                    @csrf
                     <div class="form-group mb-3">
-                        <label>Watering Time</label>
+                        <label>Set Watering Timer</label>
                         <div class="input-group clockpicker" data-placement="top" data-align="top"
                             data-autoclose="true">
-                            <input type="text" class="form-control" value="{{ $setting->watering_time ?? '' }}">
+                            <input autocomplete="off" type="text" name="watering_time" class="form-control" value="{{ $setting ? \Carbon\Carbon::parse($setting->watering_time)->format('H:i') : '' }}">
                             <div class="input-group-append">
                                 <span class="input-group-text"><i class="mdi mdi-clock-outline"></i></span>
                             </div>
@@ -128,9 +129,16 @@
 
                     <div class="form-group mb-3">
                         <label for="example-number">Amount of water</label>
-                        <input class="form-control" id="example-number" type="number" name="number"
+                        <input autocomplete="off" class="form-control" id="example-number" type="number" name="amount_of_water"
                             value="{{ $setting->amount_of_water ?? '' }}">
                     </div>
+
+                    <div class="form-group mb-0">
+                        <label for="example-range">Lowest Humidity Level</label>
+                        <input autocomplete="off" class="custom-range" id="example-range" type="range" name="humidity" min="0" max="100" value="{{ $setting->humidity ?? '' }}" oninput="this.nextElementSibling.value = this.value">
+                        <output id="range" name="range" for="example-range">{{ $setting->humidity ?? '' }}</output>%
+                    </div>
+
                     <div class="text-right">
                         <button type="reset" class="btn w-sm btn-light waves-effect">Cancel</button>
                         <button type="submit" class="btn btn-success waves-effect waves-light">Save</button>
@@ -143,7 +151,7 @@
                 <form method="post" action="/history/{{$equipment->slug}}">
                     @csrf
                     <div class="switchery-demo">
-                        <input type="checkbox" @if ($equipment->status) checked @endif
+                        <input autocomplete="off" type="checkbox" @if ($equipment->status) checked @endif
                         data-plugin="switchery" data-color="#64b0f2" data-size="large" name="status" />
                     </div>
                     <div class="text-right">
@@ -162,6 +170,7 @@
 
 @section('script')
 <!-- Plugins js-->
+
 <script src="{{asset('assets/libs/flatpickr/flatpickr.min.js')}}"></script>
 <script src="{{asset('assets/libs/bootstrap-colorpicker/bootstrap-colorpicker.min.js')}}"></script>
 <script src="{{asset('assets/libs/clockpicker/clockpicker.min.js')}}"></script>

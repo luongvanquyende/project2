@@ -6,6 +6,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\ZoneController;
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\SettingController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,6 +28,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/equipment/{slug}', 'EquipmentController@show');
     Route::post('/equipment/{slug}', 'EquipmentController@update');
     Route::delete('/equipment/{slug}', 'EquipmentController@destroy');
+
+    Route::post('/setting/{slug}', 'SettingController@store');
 
     Route::get('/zone', 'ZoneController@index');
     Route::post('/zone', 'ZoneController@store');

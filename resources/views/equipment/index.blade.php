@@ -91,8 +91,8 @@
                             </td>
 
                             <td>
-                                @if ($equipment->zone_id)
-                                {{ $equipment->zone_id->name }}
+                                @if ($equipment->zone)
+                                {{ $equipment->zone->name }}
                                 @endif
                             </td>
 
@@ -198,13 +198,13 @@
                     @csrf
                     <div class="form-group">
                         <label for="name">Equipment Name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter equipment name"
+                        <input autocomplete="off" type="text" class="form-control" id="name" name="name" placeholder="Enter equipment name"
                             required>
                     </div>
                     <div class="form-group mb-3">
                         <label for="password">Token</label>
                         <div class="input-group input-group-merge">
-                            <input type="password" id="password" class="form-control" placeholder="Enter your token"
+                            <input autocomplete="off" type="password" id="password" class="form-control" placeholder="Enter your token"
                                 name="token" required>
                             <div class="input-group-append" data-password="false">
                                 <div class="input-group-text">
@@ -215,7 +215,7 @@
                     </div>
                     <div class="form-group">
                         <label for="example-select">Zone</label>
-                        <select class="form-control" id="example-select" name="zone">
+                        <select class="form-control" id="example-select" name="zone_id">
                             @foreach ($zones as $zone)
                             <option value={{ $zone->id }}>{{ $zone->name }}</option>
                             @endforeach
@@ -226,7 +226,7 @@
                         <label>image</label>
                         <div class="input-group">
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="inputGroupFile04" name="image">
+                                <input autocomplete="off" type="file" class="custom-file-input" id="inputGroupFile04" name="image">
                                 <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
                             </div>
                         </div>

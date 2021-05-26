@@ -13,6 +13,7 @@ class Setting extends Model
         'watering_time',
         'amount_of_water',
         'equipment_id',
+        'humidity',
     ];
 
     public function Equipment()

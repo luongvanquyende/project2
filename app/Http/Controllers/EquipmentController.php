@@ -8,6 +8,7 @@ use App\Models\Equipment;
 use App\Models\Setting;
 use App\Models\Zone;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class EquipmentController extends Controller
 {
@@ -20,9 +21,7 @@ class EquipmentController extends Controller
     {
         $equipments = Equipment::with(['zone', 'setting', 'histories'])->get();
         $zones = Zone::all();
-        // foreach($equipments as $equipment){
-        //     dd($equipment->history);
-        // }
+        
         return view('equipment.index', compact(['equipments', 'zones']));
     }
 
@@ -48,7 +47,7 @@ class EquipmentController extends Controller
             'name' => 'required',
             'zone_id' => 'nullable',
             'token' => 'required',
-            'description' => 'nullable',
+            'description' => 'nullable|max:50',
             'image' => 'nullable',
         ]);
 
@@ -102,7 +101,7 @@ class EquipmentController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'description' => 'nullable',
+            'description' => 'nullable|max:50',
             'image' => 'nullable',
             'zone_id' => 'nullable'
         ]);

@@ -49,7 +49,7 @@
                             <form class="form-inline">
                                 <div class="form-group">
                                     <label for="inputPassword2" class="sr-only">Search</label>
-                                    <input type="search" class="form-control" id="inputPassword2"
+                                    <input autocomplete="off" type="search" class="form-control" id="inputPassword2"
                                         placeholder="Search...">
                                 </div>
                             </form>
@@ -118,7 +118,7 @@
                     </div>
                     <div class="col-sm-2">
                         <div class="text-center mt-3 mt-sm-0">
-                            <div class="badge font-14 bg-soft-info text-info p-1">150 equipment</div>
+                            <div class="badge font-14 bg-soft-info text-info p-1">{{ $zone->equipment->count() }} equipment</div>
                         </div>
                     </div>
                     <div class="col-sm-2">
@@ -150,7 +150,7 @@
                     @csrf
                     <div class="form-group">
                         <label for="name">Zone Name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter company name">
+                        <input autocomplete="off" type="text" class="form-control" id="name" name="name" placeholder="Enter company name">
                     </div>
                     <div class="form-group">
                         <label>Description</label>
@@ -162,7 +162,7 @@
                         <label>Image</label>
                         <div class="input-group">
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="inputGroupFile04" name="image">
+                                <input autocomplete="off" type="file" class="custom-file-input" id="inputGroupFile04" name="image">
                                 <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
                             </div>
                         </div>

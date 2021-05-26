@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\settings;
 use Illuminate\Http\Request;
+use App\Models\Setting;
+use App\Models\Equipment;
+use Carbon\Carbon;
 
 class SettingController extends Controller
 {
@@ -33,9 +36,25 @@ class SettingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $slug)
     {
-        //
+        $request->validate([
+            'watering_time' => 'nullable',
+            'amount_of_water' => 'nullable',
+            'humidity' => 'nullable',
+        ]);
+
+        $equipment = Equipment::whereSlug($slug)->firstOrFail();
+
+        Setting::updateOrCreate([
+            'equipment_id' => $equipment->id,
+        ],[
+            'watering_time' => Carbon::parse($request->get('watering_time')),
+            'amount_of_water' => $request->get('amount_of_water'),
+            'humidity' => $request->get('humidity'),
+        ]);
+
+        return redirect('/equipment/' . $slug)->with('success', 'change equipment setting successfully');
     }
 
     /**

@@ -16,8 +16,9 @@ class CreateSettingsTable extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('equipment_id');
-            $table->dateTime('watering_time', $precision = 0);
-            $table->Integer('amount_of_water');
+            $table->dateTime('watering_time', $precision = 0)->nullable();
+            $table->Integer('amount_of_water')->nullable();
+            $table->Integer('humidity')->nullable();
             $table->timestamps();
         });
     }

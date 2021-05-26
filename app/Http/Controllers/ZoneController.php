@@ -17,7 +17,7 @@ class ZoneController extends Controller
      */
     public function index()
     {
-        $zones = Zone::all();
+        $zones = Zone::with('equipment')->get();
         $user = Auth::user();
 
         return view('zone.index', compact(['zones', 'user']));
