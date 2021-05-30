@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
-
-use App\Models\Environment;
+namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
+use App\Models\Environment;
+use App\Http\Resources\EnvironmentResource;
+use App\Http\Controllers\Controller;
 
-class EnvironmentController extends Controller
+class ApiEnvironmentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,18 +14,6 @@ class EnvironmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $environments = Environment::with('equipment')->get();
-        
-        return view('environment.index', compact('environments'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
     {
         //
     }
@@ -37,7 +26,19 @@ class EnvironmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'temperature' => 'required',
+            'humidity' => 'required',
+            'equipment_id' => 'required',
+        ]);
+
+        $environment = Environment::create([
+            'temperature' => $request->get('temperature'),
+            'humidity' => $request->get('humidity'),
+            'equipment_id' => $request->get('equipment_id'),
+        ]);
+        
+        return response(['environment' => new EnvironmentResource($environment), 'message' => 'Created successfully'], 201);
     }
 
     /**
@@ -47,17 +48,6 @@ class EnvironmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(environments $environments)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\environments  $environments
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(environments $environments)
     {
         //
     }

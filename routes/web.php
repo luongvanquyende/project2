@@ -7,6 +7,7 @@ use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\ZoneController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\EnvironmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/history', 'HistoryController@index');
     Route::post('/history/{slug}', 'HistoryController@store');
+
+    Route::get('/environment', 'EnvironmentController@index');
+
 
     Route::get('/', function () {
         return redirect('/dashboard');

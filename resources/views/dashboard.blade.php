@@ -31,7 +31,7 @@
                     </div>
                     <div class="col-6">
                         <div class="text-right">
-                            <h3 class="mt-1"><span data-plugin="counterup">58</span></h3>
+                            <h3 class="mt-1"><span data-plugin="counterup">{{ $total_equipment }}</span></h3>
                             <p class="text-muted mb-1 text-truncate">Total Equipment</p>
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                     </div>
                     <div class="col-6">
                         <div class="text-right">
-                            <h3 class="text-dark mt-1"><span data-plugin="counterup">3</span></h3>
+                            <h3 class="text-dark mt-1"><span data-plugin="counterup">{{ $total_zone }}</span></h3>
                             <p class="text-muted mb-1 text-truncate">Total Zone</p>
                         </div>
                     </div>
@@ -85,7 +85,7 @@
                     </div>
                     <div class="col-6">
                         <div class="text-right">
-                            <h3 class="text-dark mt-1"><span data-plugin="counterup">13</span></h3>
+                            <h3 class="text-dark mt-1"><span data-plugin="counterup">{{ $number_active }}</span></h3>
                             <p class="text-muted mb-1 text-truncate">Today's Active</p>
                         </div>
                     </div>
@@ -109,7 +109,7 @@
                 <h4 class="header-title mb-3">Temperature And Humidity</h4>
 
                 <div dir="ltr">
-                    <div id="sales-analytics" class="mt-4" data-colors="#1abc9c,#4a81d4"></div>
+                    <div id="environment" class="mt-4" data-colors="#1abc9c,#4a81d4"></div>
                 </div>
             </div> <!-- end card-box -->
         </div> <!-- end col-->
@@ -209,7 +209,7 @@
         </div> <!-- end col -->
     </div>
     <!-- end row -->
-
+    
 </div> <!-- container -->
 @endsection
 
@@ -220,5 +220,89 @@
 <script src="{{asset('assets/libs/selectize/selectize.min.js')}}"></script>
 
 <!-- Dashboar 1 init js-->
-<script src="{{asset('assets/js/pages/dashboard-1.init.js')}}"></script>
+{{-- <script src="{{asset('assets/js/pages/dashboard-1.init.js')}}"></script> --}}
+<script>
+    var colors = ['#1abc9c', '#4a81d4'];
+    var dataColors = $("#environment").data('colors');
+    if (dataColors) {
+        colors = dataColors.split(",");
+    }
+    
+    var options = {
+        series: [{
+            name: 'Humidity',
+            type: 'column',
+            data: [23, 42, 35, 27, 43, 22, 17, 31, 22, 22, 12, 16]
+        }, {
+            name: 'Temperature',
+            type: 'line',
+            data: [2, 34, 17, 11, 47, 25, 2, 34, 17, 11, 47, 25]
+        }],
+        chart: {
+            height: 378,
+            type: 'line',
+        },
+        stroke: {
+            width: [2, 3]
+        },
+        plotOptions: {
+            bar: {
+                columnWidth: '50%'
+            }
+        },
+        colors: colors,
+        dataLabels: {
+            enabled: true,
+            enabledOnSeries: [1]
+        },
+        labels: {!! $dates !!},
+        
+        xaxis: {
+            type: 'datetime'
+        },
+        legend: {
+            offsetY: 7,
+        },
+        grid: {
+            padding: {
+              bottom: 20
+            }
+        },
+        fill: {
+            type: 'gradient',
+            gradient: {
+                shade: 'light',
+                type: "horizontal",
+                shadeIntensity: 0.25,
+                gradientToColors: undefined,
+                inverseColors: true,
+                opacityFrom: 0.75,
+                opacityTo: 0.75,
+                stops: [0, 0, 0]
+            },
+        },
+        yaxis: [{
+            title: {
+                text: 'Humidity',
+            },
+    
+        }, {
+            opposite: true,
+            title: {
+                text: 'Temperature'
+            }
+        }]
+    };
+    
+    var chart = new ApexCharts(document.querySelector("#environment"), options);
+    chart.render();
+    
+    // Datepicker
+    $('#dash-daterange').flatpickr({
+        altInput: true,
+        mode: "range",
+        altFormat: "F j, y",
+        defaultDate: 'today'
+    });
+    </script>
 @endsection
